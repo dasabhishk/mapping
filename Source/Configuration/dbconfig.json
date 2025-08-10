@@ -1,0 +1,777 @@
+{
+    "StagingDatabase": {
+        "Server": "",
+        "Database": "",
+        "Authentication": "Windows",
+        "User": "",
+        "EncryptedPassword": "",
+        "EncryptedConnectionString": "Base64-encoded DPAPI blob"
+    },
+    "TargetDatabase": {
+        "Server": "",
+        "Database": "",
+        "Authentication": "Windows",
+        "User": "",
+        "EncryptedPassword": "",
+        "EncryptedConnectionString": "Base64-encoded DPAPI blob"
+    },
+    "SupportedTargetDbVersions": [
+        "8",
+        "16.0"
+    ],
+    "StudyMigrationProcess": {
+        "DataFetchBatchSize": 1000,
+        "RowsPerBatch": 100,
+        "MaxParallelism": 5,
+        "TotalNoOfRecordsToMigrate": 0
+    },
+    "SeriesMigrationProcess": {
+        "DataFetchBatchSize": 1000,
+        "RowsPerBatch": 100,
+        "MaxParallelism": 5,
+        "TotalNoOfRecordsToMigrate": 0
+    },
+    "Tables": [
+        {
+            "Schema": "cmmt",
+            "TableName": "cmmt_AuditLog",
+            "Columns": [
+                {
+                    "Name": "LogId",
+                    "DataType": "INT",
+                    "IsNullable": false,
+                    "IsIdentity": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "FileName",
+                    "DataType": "NVARCHAR(255)",
+                    "IsNullable": false,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "CreatedAt",
+                    "DataType": "DATETIME2",
+                    "IsNullable": false,
+                    "DefaultValue": "GETDATE()",
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "CompletedAt",
+                    "DataType": "DATETIME2",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "TotalRowsCount",
+                    "DataType": "INT",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "SucessRowsCount",
+                    "DataType": "INT",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "ErrorRowsCount",
+                    "DataType": "INT",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                }
+            ],
+            "PrimaryKey": {
+                "ConstraintName": "pk_cmmt_AuditLog",
+                "ColumnNames": [
+                    "LogId"
+                ]
+            }
+        },
+        {
+            "Schema": "cmmt",
+            "TableName": "cmmt_ErrorLog",
+            "Columns": [
+                {
+                    "Name": "ErrorId",
+                    "DataType": "INT",
+                    "IsNullable": false,
+                    "IsIdentity": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "FileName",
+                    "DataType": "NVARCHAR(255)",
+                    "IsNullable": false,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "RowNumber",
+                    "DataType": "INT",
+                    "IsNullable": false,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "ErrorMessage",
+                    "DataType": "NVARCHAR(4000)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "CreatedAt",
+                    "DataType": "DATETIME2",
+                    "IsNullable": false,
+                    "DefaultValue": "GETDATE()",
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                }
+            ],
+            "PrimaryKey": {
+                "ConstraintName": "pk_cmmt_ErrorLog",
+                "ColumnNames": [
+                    "ErrorId"
+                ]
+            }
+        },
+        {
+            "Schema": "cmmt",
+            "TableName": "cmmt_PatientStudyMetaData",
+            "CsvType": "Patient Study",
+            "Columns": [
+                {
+                    "Name": "Id",
+                    "DataType": "INT",
+                    "IsNullable": false,
+                    "IsIdentity": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "FileName",
+                    "DataType": "NVARCHAR(255)",
+                    "IsNullable": false,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "RowNumber",
+                    "DataType": "INT",
+                    "IsNullable": false,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "CreatedAt",
+                    "DataType": "DATETIME2",
+                    "IsNullable": false,
+                    "DefaultValue": "GETDATE()",
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "ModifiedAt",
+                    "DataType": "DATETIME2",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "MRN",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "InstitutionName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true,
+                    "CanTransform": true
+                },
+                {
+                    "Name": "MRN2",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "InstitutionName2",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "LastName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "FirstName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "MiddleName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Title",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Honorific",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Birthdate",
+                    "DataType": "NVARCHAR(23)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Gender",
+                    "DataType": "NVARCHAR(1)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Race",
+                    "DataType": "NVARCHAR(20)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "AddressLine1",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "AddressLine2",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "City",
+                    "DataType": "NVARCHAR(20)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "State",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Zip",
+                    "DataType": "NVARCHAR(10)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Country",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "HomeTelephoneNumber",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "OtherTelephoneNumber",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "AltIdNumber",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "StudyInstanceUID",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "StudyStartDateTime",
+                    "DataType": "NVARCHAR(23)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "FillerOrderNumber",
+                    "DataType": "NVARCHAR(75)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "AccessionNumber",
+                    "DataType": "NVARCHAR(16)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ReferringPhysicianLastName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ReferringPhysicianFirstName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ReferringPhysicianMiddleName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ReferringPhysicianTitle",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ReferringPhysicianHonorific",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "TechnologistLastName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "TechnologistFirstName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "TechnologistMiddleName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "TechnologistTitle",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "TechnologistHonorific",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ScheduledStartDateTime",
+                    "DataType": "NVARCHAR(23)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ReasonForStudy",
+                    "DataType": "NVARCHAR(255)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "PatientHeight",
+                    "DataType": "NVARCHAR(16)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "PatientWeight",
+                    "DataType": "NVARCHAR(16)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "OrderingPhysicianLastName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "OrderingPhysicianFirstName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "OrderingPhysicianMiddleName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "CanTransform": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "OrderingPhysicianTitle",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "OrderingPhysicianHonorific",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "StudyType",
+                    "DataType": "NVARCHAR(20)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true,
+                    "CanTransform": true
+                },
+                {
+                    "Name": "PatientClassCode",
+                    "DataType": "NVARCHAR(1)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "LocationDescription",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ModalityType",
+                    "DataType": "NVARCHAR(16)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Comments",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "URL",
+                    "DataType": "NVARCHAR(199)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Source",
+                    "DataType": "NVARCHAR(255)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Status",
+                    "DataType": "NVARCHAR(2)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                }
+            ],
+            "PrimaryKey": {
+                "ConstraintName": "PK_PatientStudyMetaData",
+                "ColumnNames": [
+                    "Id"
+                ]
+            }
+        },
+        {
+            "Schema": "cmmt",
+            "TableName": "cmmt_PatientStudySeriesData",
+            "CsvType": "Series Instance",
+            "Columns": [
+                {
+                    "Name": "Id",
+                    "DataType": "INT",
+                    "IsNullable": false,
+                    "IsIdentity": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "FileName",
+                    "DataType": "NVARCHAR(255)",
+                    "IsNullable": false,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "RowNumber",
+                    "DataType": "INT",
+                    "IsNullable": false,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "CreatedAt",
+                    "DataType": "DATETIME2",
+                    "IsNullable": false,
+                    "DefaultValue": "GETDATE()",
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "ModifiedAt",
+                    "DataType": "DATETIME2",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "StudyInstanceUID",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ModalityType",
+                    "DataType": "NVARCHAR(16)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "SeriesInstanceUID",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "SeriesNumber",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "SeriesType",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsMappingRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ProtocolName",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "SeriesDescription",
+                    "DataType": "NVARCHAR(255)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "SOPInstanceUID",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "SOPClassUID",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ImageNumber",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ImageDateTime",
+                    "DataType": "NVARCHAR(23)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ProcessedID",
+                    "DataType": "NVARCHAR(64)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "ProcessedDateTime",
+                    "DataType": "NVARCHAR(23)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true
+                },
+                {
+                    "Name": "Status",
+                    "DataType": "NVARCHAR(2)",
+                    "IsNullable": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                }
+            ],
+            "PrimaryKey": {
+                "ConstraintName": "pk_PatientStudySeriesData",
+                "ColumnNames": [
+                    "Id"
+                ]
+            }
+        },
+        {
+            "Schema": "cmmt",
+            "TableName": "cmmt_StudyType",
+            "CsvType": "Study Type",
+            "Columns": [
+                {
+                    "Name": "StudyType",
+                    "DataType": "NVARCHAR(20)",
+                    "IsNullable": false,
+                    "IsIdentity": true,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": true,
+                    "CanTransform": true
+                }
+            ]
+        },
+        {
+            "Schema": "cmmt",
+            "TableName": "cmmt_PatientStudyReportData",
+            "Columns": [
+                {
+                    "Name": "ReportId",
+                    "DataType": "INT",
+                    "IsNullable": true,
+                    "IsIdentity": true,
+                    "IsRequired": false,
+                    "IsVisibleForMapping": false
+                },
+                {
+                    "Name": "FileName",
+                    "DataType": "NVARCHAR(255)",
+                    "IsNullable": false,
+                    "IsRequired": true,
+                    "IsVisibleForMapping": false
+                }
+            ]
+        }
+    ]
+}

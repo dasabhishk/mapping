@@ -1,0 +1,22 @@
+
+{
+    "MigrationJobs": {
+        "DefaultTimeout": "02:00:00",
+        "MaxConcurrentJobs": 3,
+        "JobPersistence": true
+    },
+    "Jobs": [
+        {
+            "Name": "ImportJob",
+            "CronExpression": "0 0/30 * * * ?",
+            "BatchSize": 500,
+            "Enabled": true
+        },
+        {
+            "Name": "MigrationJob",
+            "CronExpression": "0 2 * * * ?",
+            "BatchSize": 500,
+            "Enabled": false
+        }
+    ]
+}

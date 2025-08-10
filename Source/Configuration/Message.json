@@ -1,0 +1,110 @@
+﻿{
+    "StudyDataMapping": [
+        {
+            "ReturnCode": 0,
+            "Message": "Success"
+        },
+        {
+            "ReturnCode": 1,
+            "Message": "Patient not found. No action taken."
+        },
+        {
+            "ReturnCode": 2,
+            "Message": "Patient record is in use. Try again later."
+        },
+        {
+            "ReturnCode": 3,
+            "Message": "PIDs belong to different patients."
+        },
+        {
+            "ReturnCode": 4,
+            "Message": "The Study exists and does not match specified patient."
+        },
+        {
+            "ReturnCode": 5,
+            "Message": "The Study has already been finalized."
+        },
+        {
+            "ReturnCode": 18,
+            "Message": "Error inserting new race."
+        },
+        {
+            "ReturnCode": 20,
+            "Message": "Error manipulating _PATIENT_RACE table."
+        },
+        {
+            "ReturnCode": 22,
+            "Message": "Error inserting/updating address/patient data."
+        },
+        {
+            "ReturnCode": 25,
+            "Message": "No Last name or invalReturnCode PReturnCode1."
+        },
+        {
+            "ReturnCode": 26,
+            "Message": "Failed to create patient folder."
+        },
+        {
+            "ReturnCode": 27,
+            "Message": "Error assigning created patient to default clinical group(s)."
+        },
+        {
+            "ReturnCode": 28,
+            "Message": "Error placing unplaced studies for patient."
+        },
+        {
+            "ReturnCode": 30,
+            "Message": "Input incomplete (MRN, InstitutionName, PatientName, StudyInstanceUReturnCode may not be NULL or empty)."
+        },
+        {
+            "ReturnCode": 31,
+            "Message": "Error storing the study."
+        },
+        {
+            "ReturnCode": 32,
+            "Message": "Error placing/moving the study"
+        },
+        {
+            "ReturnCode": 34,
+            "Message": "Error inserting location."
+        },
+        {
+            "ReturnCode": 35,
+            "Message": "PReturnCodes update failed."
+        },
+        {
+            "ReturnCode": 37,
+            "Message": "Error Updating FillerOrderNumber/StudyTypeDBKey/Comment."
+        },
+        {
+            "ReturnCode": 38,
+            "Message": "Error retrieving or creating new institution."
+        },
+        {
+            "ReturnCode": 40,
+            "Message": "No Storage location exists for Access Type = web and StorageType = External Web Server."
+        },
+        {
+            "ReturnCode": 41,
+            "Message": "Error either inserting or updating _STUDY_INSTANCE_STORAGE for URL."
+        },
+        {
+            "ReturnCode": 42,
+            "Message": "No Storage location exists for Access Type = DICOM and StorageType = External DICOM node."
+        },
+        {
+            "ReturnCode": 43,
+            "Message": "Error either inserting or updating _STUDY_INSTANCE_STORAGE for External DICOM node."
+        },
+        {
+            "ReturnCode": 44,
+            "Message": "Preconditions not met -- study exists, but is not marked as \"external\"."
+        }
+    ],
+    "SeriesDataMapping": [
+        {
+            "ReturnCode": 0,
+            "Message": "Success"
+        }
+    ]
+}

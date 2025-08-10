@@ -1,0 +1,97 @@
+{
+  "Mappings": [
+    {
+      "TableName": "cmmt_PatientStudyMetaData",
+      "CsvType": "Patient Study",
+      "ColumnMappings": [
+        {
+          "CsvColumn": "MRN",
+          "DbColumn": "MRN",
+          "IsDerivedColumn": false,
+          "SourceColumnName": null,
+          "TransformationType": null,
+          "TransformationParameters": null
+        },
+        {
+          "CsvColumn": "InstitutionName",
+          "DbColumn": "InstitutionName",
+          "IsDerivedColumn": false,
+          "SourceColumnName": null,
+          "TransformationType": null,
+          "TransformationParameters": null
+        },
+        {
+          "CsvColumn": "PatientName",
+          "DbColumn": "LastName",
+          "IsDerivedColumn": true,
+          "SourceColumnName": "PatientName",
+          "TransformationType": "SplitLastToken",
+          "TransformationParameters": {
+            "Delimiter": " "
+          }
+        },
+        {
+          "CsvColumn": "PatientName",
+          "DbColumn": "FirstName",
+          "IsDerivedColumn": true,
+          "SourceColumnName": "PatientName",
+          "TransformationType": "SplitFirstToken",
+          "TransformationParameters": {
+            "Delimiter": " "
+          }
+        },
+        {
+          "CsvColumn": "PatientName",
+          "DbColumn": "MiddleName",
+          "IsDerivedColumn": true,
+          "SourceColumnName": "PatientName",
+          "TransformationType": "SplitMiddleToken",
+          "TransformationParameters": {
+            "Delimiter": " "
+          }
+        },
+        {
+          "CsvColumn": "Birthdate",
+          "DbColumn": "Birthdate",
+          "IsDerivedColumn": true,
+          "SourceColumnName": "Birthdate",
+          "TransformationType": "DateFormat",
+          "TransformationParameters": {
+            "SourceFormat": "dd-MM-yyyy",
+            "TargetFormat": "yyyy-MM-dd HH:mm:ss"
+          }
+        },
+        {
+          "CsvColumn": "Gender",
+          "DbColumn": "Gender",
+          "IsDerivedColumn": true,
+          "SourceColumnName": "Gender",
+          "TransformationType": "CategoryMapping",
+          "TransformationParameters": {
+            "TargetMappings": {
+              "M": "M",
+              "F": "F",
+              "U": "U"
+            }
+          }
+        },
+        {
+          "CsvColumn": "StudyInstanceUID",
+          "DbColumn": "StudyInstanceUID",
+          "IsDerivedColumn": false,
+          "SourceColumnName": null,
+          "TransformationType": null,
+          "TransformationParameters": null
+        },
+        {
+          "CsvColumn": "AccessionNumber",
+          "DbColumn": "AccessionNumber",
+          "IsDerivedColumn": false,
+          "SourceColumnName": null,
+          "TransformationType": null,
+          "TransformationParameters": null
+        }
+      ]
+    }
+  ]
+}
