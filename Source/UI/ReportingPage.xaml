@@ -1,0 +1,123 @@
+﻿<Page x:Class="CMMT.UI.ReportingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:CMMT.UI"
+      xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ReportingPage">
+
+    <Page.Resources>
+        <!-- simple style for the big title -->
+        <Style x:Key="Headline" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="48"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <!-- quick blue button style -->
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Padding"        Value="14,4"/>
+            <Setter Property="Foreground"     Value="White"/>
+            <Setter Property="Background"     Value="#3366CC"/>
+            <Setter Property="BorderBrush"    Value="#3366CC"/>
+            <Setter Property="FontWeight"     Value="SemiBold"/>
+            <Setter Property="Cursor"         Value="Hand"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <!-- Changed from "*" to "Auto" -->
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Data Migration Report"
+                     Style="{StaticResource Headline}"
+                     VerticalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="Start:" Margin="0,0,6,0" FontSize="14" VerticalAlignment="Center"/>
+                <DatePicker x:Name="dpStart"
+                Margin="0,0,10,0" SelectedDate="{x:Static sys:DateTime.Today}"/>
+                <TextBlock Text="End:" Margin="0,0,6,0" FontSize="14" VerticalAlignment="Center"/>
+                <DatePicker x:Name="dpEnd"
+                Margin="0,0,10,0" SelectedDate="{x:Static sys:DateTime.Today}"/>
+                <Button Content="Load"
+            Style="{StaticResource ActionButton}"
+            Click="LoadButton_Click"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!-- small spacer -->
+        <Border Grid.Row="1" Height="12"/>
+        <DataGrid Grid.Row="2"
+    ItemsSource="{Binding Reports}"
+    AutoGenerateColumns="False"
+    IsReadOnly="True"
+    HeadersVisibility="Column"
+    RowHeaderWidth="30"
+    CanUserAddRows="False"
+    MinRowHeight="30"
+    Margin="0"
+    HorizontalAlignment="Stretch"
+    HorizontalScrollBarVisibility ="Auto"
+    VerticalAlignment="Top">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Padding" Value="0,12"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="CSV Filename" Binding="{Binding FileName}" Width="200"/>
+                <DataGridTextColumn Header="Total Rows" Binding="{Binding TotalRows}" Width="120"/>
+
+                <DataGridTextColumn Header="Valid Rows" Binding="{Binding ValidRows}" Width="120"/>
+                <DataGridTextColumn Header="Invalid Rows" Binding="{Binding InvalidRows}" Width="120"/>
+
+                <DataGridTemplateColumn Width="250">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Staging Issues Report" HorizontalAlignment="Center"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Export Invalid Rows"
+                        Style="{StaticResource ActionButton}"
+                        Command="{Binding DataContext.ExportCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                        CommandParameter="{Binding}" Width="250"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Migrated Rows" Binding="{Binding MigratedRows}" Width="120"/>
+                <DataGridTextColumn Header="Error Rows" Binding="{Binding ErrorRows}" Width="120"/>
+
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Migration Issues Report" HorizontalAlignment="Center"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Export Error Rows"
+                        Style="{StaticResource ActionButton}"
+                        Command="{Binding DataContext.ExportErrorRept, RelativeSource={RelativeSource AncestorType=Page}}"
+                        CommandParameter="{Binding}" Width="280"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+</Page>

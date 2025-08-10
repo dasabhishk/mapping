@@ -1,0 +1,55 @@
+﻿<Page x:Class="CMMT.UI.ProcessCSV"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewmodels="clr-namespace:CMMT.ViewModels" mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance Type=viewmodels:ProcessCSVViewModel, IsDesignTimeCreatable=True}"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Process CSV">
+    <Grid Background="White" Margin="40,20">
+        <GroupBox>
+            <GroupBox.Header>
+                <TextBlock Text="Process CSV" FontWeight="Bold" FontSize="14"/>
+            </GroupBox.Header>
+            <Border Padding="30">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Select Archive Type"  VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox x:Name="cmbArchiveType" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"
+                              ItemsSource="{Binding ArchiveTypes}" DisplayMemberPath="Identifier" SelectedValuePath="StorageLocDBKey" SelectedValue="{Binding SelectedArchiveTypeId, Mode=TwoWay}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Select CSV Type"  VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox x:Name="cmbCsvType" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" SelectionChanged="CsvTypeComboBox_SelectionChanged">
+                        <ComboBoxItem Content="Patient Study" IsSelected="True"  />
+                        <ComboBoxItem Content="Series Instance"/>
+                    </ComboBox>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Select CSV files" VerticalAlignment="Center" Margin="0,5"/>
+                    <TextBox x:Name="txtCsvFiles" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                    <Button x:Name="btnBrowseCsv" Grid.Row="2" Grid.Column="2" Width="100" Content="Browse" Click="BrowseCSVFiles_Click" Margin="5" />
+
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,14,0,42">
+                        <Button x:Name="btnLoad" Content="Load" Width="150" Click="LoadCsv_Click" />
+                        <Button x:Name="btnValidate" Content="Validate" Width="150" Click="ValidateCsv_Click" />
+                    </StackPanel>
+                    <ProgressBar x:Name="progressBar" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Maximum="100" Margin="66,96,66,-20" Grid.RowSpan="2"/>
+                    <TextBlock x:Name="progressText" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="5,68,5,0"/>
+                </Grid>
+            </Border>
+        </GroupBox>
+    </Grid>
+</Page>

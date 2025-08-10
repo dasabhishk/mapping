@@ -1,0 +1,108 @@
+﻿<Window x:Class="CMMT.UI.ValueMappingDialog"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:vm="clr-namespace:CMMT.ViewModels"
+        xmlns:local="clr-namespace:CMMT.Helpers"
+       Title="Value Lookup Transformation"
+       Height="500"
+       Width="600"
+       WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <local:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+        <local:IntInverseToVisibilityConverter x:Key="IntInverseToVisibilityConverter"/>
+    </Window.Resources>
+    
+        <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Default Target Value Row -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
+                <TextBlock Text="Default Target Value" FontWeight="SemiBold" VerticalAlignment="Center"/>
+            <ComboBox x:Name="TargetComboBox" Width="210" Margin="10,0,0,0"
+                      ItemsSource="{Binding AvailableTargets}"
+                      SelectedItem="{Binding DefaultTargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+            <!-- Mapping DataGrid -->
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding Mappings}"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="Column"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  RowBackground="White"
+                  AlternatingRowBackground="#F9F9F9"
+                  GridLinesVisibility="All"
+                  Margin="0,0,0,8"
+                  ColumnHeaderHeight="30"
+                  RowHeight="30"
+                  VerticalScrollBarVisibility="Auto"
+                  BorderBrush="LightGray"
+                  BorderThickness="1"
+                  Visibility="{Binding Mappings.Count, Converter={StaticResource IntToVisibilityConverter}}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="CSV Value" Width="180">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Width="160"
+                                      ItemsSource="{Binding FilteredSources}"
+                                      SelectedItem="{Binding SourceValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEnabled="{Binding DataContext.HasCSVData, RelativeSource={RelativeSource AncestorType=Window}}"
+                            IsEditable="False"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Target DB Value" Width="210">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Width="190"
+                                      ItemsSource="{Binding DataContext.AvailableTargets, RelativeSource={RelativeSource AncestorType=Window}}"
+                                      SelectedItem="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEditable="False"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Action" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Width="90"
+                                    Command="{Binding DataContext.RemoveRowCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                    CommandParameter="{Binding}" Margin="0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <!-- Status message if no transformation via grid -->
+
+        <TextBlock Grid.Row="2" Text="No custom transformation performed. All CSV values will use the default target value"
+                       Foreground="Gray" FontStyle="Italic" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0,30,0,0" Visibility="{Binding Mappings.Count, Converter={StaticResource IntInverseToVisibilityConverter}}" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Add Row"
+            Width="100"
+            Command="{Binding AddRowCommand}"
+                    IsEnabled="{Binding CanAddRow}"
+            Grid.Column="1"
+            HorizontalAlignment="Right"/>
+        </Grid>
+
+        <!-- Footer Buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,0,0"
+                Grid.Row="3">
+            <Button Content="Apply Transformation" Width="160" Height="30" Margin="0,0,10,0" IsDefault="True" Click="Apply_Click"/>
+            <Button Content="Cancel" Width="90" Height="30" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>
+ 

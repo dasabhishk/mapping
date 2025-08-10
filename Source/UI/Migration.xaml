@@ -1,0 +1,172 @@
+
+<Page x:Class="CMMT.UI.Migration"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:helpers="clr-namespace:CMMT.Helpers" mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Migration Page">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <helpers:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+    </Page.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Migration Type Selection -->
+        <GroupBox Header="Migration Type" Grid.Row="0" Grid.Column="0" Margin="0,0,10,10" Padding="10">
+            <StackPanel>
+                <RadioButton x:Name="rbtnInstantMigration" Content="Instant Migration"
+                             GroupName="MigrationOptionType"
+                             PreviewMouseLeftButtonDown="Radio_MouseDown"
+                             Checked="Radio_Checked"
+                             IsChecked="True"
+                             Margin="0,0,0,5"/>
+                <Grid Visibility="{Binding IsScheduledMigrationSelected, Converter={StaticResource InvertBooleanConverter}}" Margin="20,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Total Number of Studies to Migrate:" />
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtTotalNoOfStudies" Width="100" Text="{Binding TotalNoOfStudies}" KeyUp="TotalNoOfStudies_KeyUp" HorizontalAlignment="Left" />
+                    <TextBlock Grid.Row="0" Grid.Column="3" x:Name="txtWarningTextBlock" Foreground="Red" Visibility="Collapsed" Text="Please enter valid number of studies" Margin="5,5,5,10" />
+                </Grid>
+                <RadioButton x:Name="rbtnScheduledMigration" Content="Scheduled Migration"
+                             GroupName="MigrationOptionType"
+                             PreviewMouseLeftButtonDown="Radio_MouseDown"
+                             Checked="Radio_Checked"
+                             IsChecked="{Binding IsScheduledMigrationSelected, Mode=TwoWay}"
+                             Margin="0,0,0,5"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- CSV Type Selection -->
+        <GroupBox Header="CSV Type Selection" Grid.Row="0" Grid.Column="1" Margin="10,0,0,10" Padding="10">
+            <StackPanel>
+                <TextBlock Text="Select CSV Type:" Margin="0,0,0,5"/>
+                <ComboBox ItemsSource="{Binding AvailableCsvTypes}"
+                          SelectedItem="{Binding SelectedCsvType, Mode=TwoWay}"
+                          DisplayMemberPath="."
+                          Width="200"
+                          HorizontalAlignment="Left"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Scheduled Migration Options -->
+        <GroupBox Header="Scheduled Migration Options" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,10" Padding="10" 
+                  Visibility="{Binding IsScheduledMigrationSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Start Date and Time -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Start Date:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+                <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding ScheduledStartDateOnly, Mode=TwoWay}" 
+                           Margin="0,0,10,5" Width="190" HorizontalAlignment="Left"/>
+                
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Start Time:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="3" 
+                         Text="{Binding ScheduledStartTimeString, Mode=TwoWay}"
+                         Margin="0,0,0,5" Width="80" HorizontalAlignment="Left"
+                         ToolTip="Format: HH:mm (24-hour format)"/>
+
+                <!-- End Date and Time -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="End Date:" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding ScheduledEndDateOnly, Mode=TwoWay}" 
+                           Margin="0,0,10,0" Width="190" HorizontalAlignment="Left"/>
+                
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="End Time:" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="3" 
+                         Text="{Binding ScheduledEndTimeString, Mode=TwoWay}"
+                         Margin="0,0,0,5"
+                         Width="80" HorizontalAlignment="Left"
+                         ToolTip="Format: HH:mm (24-hour format)"/>
+
+                <!-- Validation Info -->
+                <TextBlock Grid.Row="2" Grid.ColumnSpan="4" 
+                           Text="Note: End time must be after start time. Use 24-hour format (e.g., 14:30 for 2:30 PM)"
+                           Foreground="Gray" FontSize="11" Margin="0,10,0,0"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Database Information -->
+        <GroupBox Header="Database Information" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,0,10" Padding="10">
+            <StackPanel>
+                <TextBlock Margin="0,5,0,0">
+                    <Run Text="Staging Database: "/>
+                    <Run Text="{Binding StagingDatabaseName}"/>
+                </TextBlock>
+                <TextBlock Margin="0,5,0,0">
+                    <Run Text="Target Database: "/>
+                    <Run Text="{Binding TargetDatabaseName}"/>
+                </TextBlock>
+                <TextBlock Margin="0,5,0,0">
+                    <Run Text="Selected Table: "/>
+                    <Run Text="{Binding SelectedCsvType}" FontWeight="Bold"/>
+                </TextBlock>
+                <StackPanel Visibility="{Binding HasDatabaseError, Converter={StaticResource BooleanToVisibilityConverter}}"
+            Margin="0,8,0,0">
+                    <TextBlock Text="{Binding DatabaseValidationError}"
+               Foreground="Red"
+                 FontSize="11"
+   FontStyle="Italic"
+   Margin="0,2,0,0"/>
+                    <TextBlock Text="Please configure database connections in the Database Setup section before starting migration."
+               Foreground="Orange"
+               FontSize="11"
+               FontStyle="Italic"
+               Margin="0,2,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        
+        
+
+        <!-- Migration Progress -->
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0,0,10">
+            <TextBlock Text="Migration Progress:" Margin="0,0,0,5"/>
+            <ProgressBar Value="{Binding MigrationProgress}" Minimum="0" Maximum="100" Height="20"/>
+            <TextBlock Text="{Binding MigrationProgress, StringFormat={}{0}% Complete}" HorizontalAlignment="Right" Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- Control Buttons -->
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+            <Button x:Name="btnStartMigration" Content="Start Migration" Command="{Binding StartMigrationCommand}" Padding="20,10" Margin="0,0,20,0"/>
+            <Button x:Name="btnStopMigration" Content="Stop Migration" Command="{Binding StopMigrationCommand}" Padding="20,10"  Margin="0,0,20,0"/>
+        </StackPanel>
+
+        <!-- Job Status -->
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Job Status: " FontWeight="SemiBold" />
+            <TextBlock Text="{Binding JobStatus}" FontWeight="Bold" />
+        </StackPanel>
+
+    </Grid>
+</Page>
